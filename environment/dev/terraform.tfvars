@@ -46,15 +46,15 @@ aks = {
     location            = "East US"
     resource_group_name = "dev-rg"
     dns_prefix          = "devaks"
-    size             = "Standard_DC2ds_v3"
+    size                = "Standard_DC2ds_v3"
   }
 }
 
 postgres_sql = {
   postgres1 = {
-    name                = "dev-postgres231225"
+    name                = "dev-postgres2312256060"
     resource_group_name = "dev-rg"
-    location            = "East US"
+    location            = "Canada Central"
     version             = "14"
 
     admin_username = "pgadmin"
@@ -85,7 +85,15 @@ sec = {
 
 postgres_db = {
   db1 = {
-    db_name    = "dev-postgredb231225"
+    db_name    = "assetdb"
+    server_key = "postgres1"
+  }
+  db2 = {
+    db_name    = "employeedb"
+    server_key = "postgres1"
+  }
+  db3 = {
+    db_name    = "assignmentdb"
     server_key = "postgres1"
   }
 }
