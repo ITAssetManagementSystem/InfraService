@@ -1,7 +1,7 @@
 rg = {
   rg1 = {
     name     = "dev-rg"
-    location = "centralindia"
+    location = "East US"
   }
 }
 
@@ -9,7 +9,7 @@ vnet = {
   vnet1 = {
     name                = "dev-vnet"
     resource_group_name = "dev-rg"
-    location            = "centralindia"
+    location            = "East US"
     address_space       = ["10.0.0.0/16"]
   }
 }
@@ -34,7 +34,7 @@ acr = {
   acr1 = {
     name                = "devacr231225"
     resource_group_name = "dev-rg"
-    location            = "centralindia"
+    location            = "East US"
     sku                 = "Standard"
     admin_enabled       = false
   }
@@ -46,7 +46,7 @@ aks = {
     location            = "East US"
     resource_group_name = "dev-rg"
     dns_prefix          = "devaks"
-    size                = "Standard_DC2ds_v3"
+    size             = "Standard_DC2ds_v3"
   }
 }
 
@@ -54,23 +54,46 @@ postgres_sql = {
   postgres1 = {
     name                = "dev-postgres231225"
     resource_group_name = "dev-rg"
-    location            = "centralindia"
+    location            = "East US"
     version             = "14"
 
     admin_username = "pgadmin"
-    admin_password = "pgadmin@123"
+    secret_name    = "postgres-password"
+    kv_key         = "kv1"
 
-    #zone                = "1"
-    storage_mb   = 32768
-    storage_tier = "P4"
-    sku_name     = "B_Standard_B1ms"
+    sku_name   = "B_Standard_B1ms"
+    storage_mb = 32768
+  }
+}
+
+
+kv = {
+  kv1 = {
+    name                = "dev-kv231225"
+    location            = "East US"
+    resource_group_name = "dev-rg"
+  }
+}
+
+sec = {
+  sec1 = {
+    name   = "postgres-password"
+    value  = "Strong@123"
+    kv_key = "kv1"
   }
 }
 
 postgres_db = {
-  postgres_db1 = {
+  db1 = {
     db_name    = "dev-postgredb231225"
-    server_key = "postgres1" # refers to postgres["dev"]
+    server_key = "postgres1"
+  }
+}
+
+assignments = {
+  aks1 = {
+    acr_key = "acr1"
+    aks_key = "aks1"
   }
 }
 

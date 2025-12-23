@@ -27,17 +27,38 @@ module "aks" {
   aks        = var.aks
 }
 
+module "aks_acr_role" {
+  depends_on = [module.aks, module.acr]
+  source     = "../../module/aks_acr_role_assignment"
+
+  assignments = {
+    for k, v in var.assignments : k => {
+      acr_id            = module.acr.acr_ids[v.acr_key]
+      kubelet_object_id = module.aks.aks_kubelet_ids[v.aks_key]
+    }
+  }
+}
+
+module "keyvault" {
+  depends_on = [module.rg]
+  source = "../../module/key_vault"
+  kv     = var.kv
+  sec    = var.sec
+  
+}
+
 module "postgresql" {
-  depends_on   = [module.rg, module.vnet, module.subnet]
-  source       = "../../module/postgre_sql"
-  postgres_sql = var.postgres_sql
+  depends_on = [module.rg, module.vnet, module.subnet, module.keyvault]
+  source = "../../module/postgre_sql"
+  postgres_sql  = var.postgres_sql
+  key_vault_ids = module.keyvault.key_vault_ids
+
 }
 
 
 module "postgredb" {
-  depends_on          = [module.rg, module.postgresql]
+  depends_on          = [module.postgresql]
   source              = "../../module/postgre_db"
   postgres_db         = var.postgres_db
   postgres_server_ids = module.postgresql.postgres_server_ids
 }
-

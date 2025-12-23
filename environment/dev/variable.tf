@@ -51,22 +51,19 @@ variable "aks" {
 }
 
 variable "postgres_sql" {
-  description = "PostgreSQL Flexible Server (public access)"
   type = map(object({
     name                = string
     resource_group_name = string
     location            = string
     version             = string
-
     admin_username = string
-    admin_password = string
-
-    #zone                = string
-    storage_mb   = number
-    storage_tier = string
-    sku_name     = string
+    secret_name    = string
+    kv_key         = string
+    sku_name   = string
+    storage_mb = number
   }))
 }
+
 
 variable "postgres_db" {
   description = "PostgreSQL databases"
@@ -75,3 +72,30 @@ variable "postgres_db" {
     server_key = string
   }))
 }
+
+
+variable "kv" {
+  description = "Key Vault configuration map"
+  type = map(object({
+    name                = string
+    location            = string
+    resource_group_name = string
+  }))
+}
+
+variable "sec" {
+  description = "Key Vault secrets configuration map"
+  type = map(object({
+    name   = string
+    value  = string
+    kv_key = string   # Must match a key in var.kv
+  }))
+}
+
+variable "assignments" {
+  type = map(object({
+    acr_key = string
+    aks_key = string
+  }))
+}
+
