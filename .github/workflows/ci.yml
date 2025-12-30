@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call composite action
-        uses: ITAssetManagementSystem/CommonWorkflows/actions/terraform-plan@main
+        uses: ITAssetManagementSystem/CommonWorkflows/.github/actions/terraform-plan@main
         with:
           message: "Hello from composite action caller Nilay!"
