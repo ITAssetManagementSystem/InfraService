@@ -11,6 +11,9 @@ jobs:
   terraform_plan:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
       - name: Terraform Plan
         uses: ITAssetManagementSystem/CommonWorkflows/.github/actions/terraform-plan@main
         with:
