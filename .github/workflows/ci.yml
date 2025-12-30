@@ -17,5 +17,5 @@ jobs:
       - name: Terraform Plan
         uses: ITAssetManagementSystem/CommonWorkflows/.github/actions/terraform-plan@main
         with:
-          working_directory: InfraService/environment/dev
+          working_directory: environment/dev
      
