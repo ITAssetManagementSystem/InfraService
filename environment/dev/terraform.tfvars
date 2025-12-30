@@ -43,38 +43,22 @@ acr = {
 aks = {
   aks1 = {
     name                = "dev-aks"
-    location            = "East US"
+    location            = "Canada Central"
     resource_group_name = "dev-rg"
     dns_prefix          = "devaks"
     size             = "Standard_DC2ds_v3"
   }
 }
 
-postgres_sql = {
-  postgres1 = {
-    name                = "dev-postgres231225"
-    resource_group_name = "dev-rg"
-    location            = "East US"
-    version             = "14"
-
-    admin_username = "pgadmin"
-    secret_name    = "postgres-password"
-    kv_key         = "kv1"
-
-    sku_name   = "B_Standard_B1ms"
-    storage_mb = 32768
-  }
-}
-
-
 kv = {
   kv1 = {
-    name                = "dev-kv231225"
+    name                = "dev-kv23122526"
     location            = "East US"
     resource_group_name = "dev-rg"
   }
 }
 
+# if we use RBAC for key vault no need the secrets here because they will be created directly in the key vault
 sec = {
   sec1 = {
     name   = "postgres-password"
@@ -83,13 +67,8 @@ sec = {
   }
 }
 
-postgres_db = {
-  db1 = {
-    db_name    = "dev-postgredb231225"
-    server_key = "postgres1"
-  }
-}
 
+#  AKS ↔ ACR role assignment
 assignments = {
   aks1 = {
     acr_key = "acr1"
@@ -97,3 +76,63 @@ assignments = {
   }
 }
 
+#  KEY VAULT RBAC 
+keyvault_assignments = {
+  terraform = {
+    principal_type = "terraform"
+    kv_key         = "kv1"
+  }
+
+  aks = {
+    principal_type = "aks"
+    kv_key         = "kv1"
+  }
+}
+
+postgres_sql = {
+  postgres1 = {
+    name                = "dev-postgres271225"
+    resource_group_name = "dev-rg"
+    location            = "centralindia"
+    version             = "14"
+    admin_username = "pgadmin"
+    secret_name    = "postgres-password"
+    kv_key         = "kv1"
+    sku_name   = "B_Standard_B1ms"
+    storage_mb = 32768
+  }
+}
+
+postgres_db = {
+  db1 = {
+    db_name    = "assetdb"
+    server_key = "postgres1"
+  }
+  db2 = {
+    db_name    = "employeedb"
+    server_key = "postgres1"
+  }
+  db3 = {
+    db_name    = "assignmentdb"
+    server_key = "postgres1"
+  }
+}
+
+postgres_firewall_rules = {
+
+  #  Allow Azure Services
+  allow_azure = {
+    name       = "Allow-Azure-Services"
+    server_key = "postgres1"
+    start_ip   = "0.0.0.0"
+    end_ip     = "0.0.0.0"
+  }
+
+  # 🔥 Allow Office / Client IP
+  my_laptop = {
+    name       = "My-Laptop-IP"
+    server_key = "postgres1"
+    start_ip   = "49.36.120.15"
+    end_ip     = "49.36.120.15"
+  }
+}

@@ -50,30 +50,6 @@ variable "aks" {
   }))
 }
 
-variable "postgres_sql" {
-  type = map(object({
-    name                = string
-    resource_group_name = string
-    location            = string
-    version             = string
-    admin_username = string
-    secret_name    = string
-    kv_key         = string
-    sku_name   = string
-    storage_mb = number
-  }))
-}
-
-
-variable "postgres_db" {
-  description = "PostgreSQL databases"
-  type = map(object({
-    db_name    = string
-    server_key = string
-  }))
-}
-
-
 variable "kv" {
   description = "Key Vault configuration map"
   type = map(object({
@@ -91,6 +67,12 @@ variable "sec" {
     kv_key = string   # Must match a key in var.kv
   }))
 }
+variable "keyvault_assignments" {
+  type = map(object({
+    principal_type = string
+    kv_key         = string
+  }))
+}
 
 variable "assignments" {
   type = map(object({
@@ -99,3 +81,34 @@ variable "assignments" {
   }))
 }
 
+variable "postgres_sql" {
+  type = map(object({
+    name                = string
+    resource_group_name = string
+    location            = string
+    version             = string
+    admin_username = string
+    secret_name    = string
+    kv_key         = string
+    sku_name   = string
+    storage_mb = number
+  }))
+}
+
+variable "postgres_db" {
+  description = "PostgreSQL databases"
+  type = map(object({
+    db_name    = string
+    server_key = string
+  }))
+}
+
+variable "postgres_firewall_rules" {
+  description = "PostgreSQL firewall rules"
+  type = map(object({
+    name       = string
+    server_key = string
+    start_ip   = string
+    end_ip     = string
+  }))
+}

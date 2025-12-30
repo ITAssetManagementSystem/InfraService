@@ -9,3 +9,6 @@ output "key_vault_ids" {
 output "secret_ids" {
   value = { for k, v in azurerm_key_vault_secret.sec : k => v.id }
 }
+
+
+
