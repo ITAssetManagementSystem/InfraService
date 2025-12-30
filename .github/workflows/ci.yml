@@ -3,17 +3,15 @@ name: InfraService CI - Terraform Plan
 
 on:
   pull_request:
-    paths:
-      - "InfraService/**"
+    branches:
+    - main
 
 jobs:
   terraform_plan:
     runs-on: ubuntu-latest
-
     steps:
       - name: Terraform Plan
         uses: ITAssetManagementSystem/CommonWorkflows/.github/actions/terraform-plan@main
         with:
-          working_directory: InfraService
-          environment: dev
+          working_directory: InfraService/environment/dev
      
