@@ -14,6 +14,6 @@ provider "azurerm" {
   features {
 
   }
-  subscription_id = "6b085240-a951-404c-8e9c-110ec63f18de"
+  subscription_id = "a46e2f32-e4a1-44bf-946c-f3fa4a273aa1"
   # Configuration options
 }

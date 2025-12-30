@@ -32,7 +32,7 @@ subnet = {
 
 acr = {
   acr1 = {
-    name                = "devacr231225"
+    name                = "devacr301225"
     resource_group_name = "dev-rg"
     location            = "East US"
     sku                 = "Standard"
@@ -52,7 +52,7 @@ aks = {
 
 kv = {
   kv1 = {
-    name                = "dev-kv2312252660"
+    name                = "dev-kv301225"
     location            = "East US"
     resource_group_name = "dev-rg"
   }
@@ -91,7 +91,7 @@ keyvault_assignments = {
 
 postgres_sql = {
   postgres1 = {
-    name                = "dev-postgres271225"
+    name                = "dev-postgres301225"
     resource_group_name = "dev-rg"
     location            = "centralindia"
     version             = "14"

@@ -1,19 +1,20 @@
-
-name: InfraService CI - Terraform Plan
+name: InfraService CD - Terraform Apply
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
       - "InfraService/**"
 
 jobs:
-  terraform_plan:
+  terraform_apply:
     runs-on: ubuntu-latest
+    environment: dev   # 👈 GitHub environment approval laga sakti ho
 
     steps:
-      - name: Terraform Plan
+      - name: Terraform Apply
         uses: ITAssetManagementSystem/CommonWorkflows/.github/actions/terraform-plan@main
         with:
           working_directory: InfraService
           environment: dev
-     
