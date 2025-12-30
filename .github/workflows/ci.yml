@@ -2,12 +2,12 @@ name: Call Composite Action
 
 on:
   workflow_dispatch:
-  
+
 jobs:
   call-composite:
     runs-on: ubuntu-latest
     steps:
       - name: Call composite action
-        uses: ITAssetManagementSystem/CommonWorkflows/terraform-plam.yml@main
+        uses: ITAssetManagementSystem/CommonWorkflows/actions/terraform-plan@main
         with:
           message: "Hello from composite action caller Nilay!"
