@@ -24,7 +24,7 @@ module "vnet" {
 # Subnet
 ############################
 module "subnet" {
-  depends_on = [module.rg, module.vnet]
+  depends_on = [module.vnet]
   source     = "../../module/subnet"
   subnet     = var.subnet
 }
@@ -33,7 +33,7 @@ module "subnet" {
 # Azure Container Registry
 ############################
 module "acr" {
-  depends_on = [module.rg, module.vnet]
+  depends_on = [module.rg]
   source     = "../../module/azure_container_registry"
   acr        = var.acr
 }
@@ -42,7 +42,7 @@ module "acr" {
 # AKS Cluster
 ############################
 module "aks" {
-  depends_on = [module.rg, module.vnet]
+  depends_on = [module.rg]
   source     = "../../module/azure_kubernetes"
   aks        = var.aks
 }
@@ -76,24 +76,14 @@ module "aks_acr_role" {
 ############################
 module "keyvault" {
   depends_on = [
-    module.rg,module.aks
+    module.rg, module.aks
     # time_sleep.wait_for_kv_rbac
   ]
 
   source = "../../module/key_vault"
-  kv  = var.kv
-  sec = var.sec
+  kv     = var.kv
+  sec    = var.sec
 
-}
-
-module "keyvault_rbac" {
-  depends_on = [
-    module.keyvault,
-    module.aks
-  ]
-
-  source = "../../module/keyvault_role_assignment"
-   # 🔥 FIXED: correct variable name = assignments
   keyvault_assignments = {
     for k, v in var.keyvault_assignments : k => {
       scope = module.keyvault.key_vault_ids[v.kv_key]
@@ -108,10 +98,12 @@ module "keyvault_rbac" {
         ? "Key Vault Secrets Officer"
         : "Key Vault Secrets User"
       )
-    kv_key = v.kv_key
+      kv_key = v.kv_key
     }
   }
-  }
+
+}
+
 
 
 
@@ -121,10 +113,7 @@ module "keyvault_rbac" {
 module "postgresql" {
   depends_on = [
     module.rg,
-    module.vnet,
-    module.subnet,
-    module.keyvault,
-    module.keyvault_rbac 
+    module.keyvault
   ]
 
   source = "../../module/postgre_sql"

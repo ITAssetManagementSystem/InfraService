@@ -4,9 +4,9 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.57.0"
     }
-  #   time = {
-  #   source = "hashicorp/time"
-  # }
+    #   time = {
+    #   source = "hashicorp/time"
+    # }
   }
 }
 
@@ -14,6 +14,6 @@ provider "azurerm" {
   features {
 
   }
-  subscription_id = "a46e2f32-e4a1-44bf-946c-f3fa4a273aa1"
+  subscription_id = "6b085240-a951-404c-8e9c-110ec63f18de"
   # Configuration options
 }

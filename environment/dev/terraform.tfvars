@@ -46,13 +46,13 @@ aks = {
     location            = "Canada Central"
     resource_group_name = "dev-rg"
     dns_prefix          = "devaks"
-    size             = "Standard_DC2ds_v3"
+    size                = "Standard_DC2ds_v3"
   }
 }
 
 kv = {
   kv1 = {
-    name                = "dev-kv23122526"
+    name                = "dev-kv2312252660"
     location            = "East US"
     resource_group_name = "dev-rg"
   }
@@ -95,11 +95,11 @@ postgres_sql = {
     resource_group_name = "dev-rg"
     location            = "centralindia"
     version             = "14"
-    admin_username = "pgadmin"
-    secret_name    = "postgres-password"
-    kv_key         = "kv1"
-    sku_name   = "B_Standard_B1ms"
-    storage_mb = 32768
+    admin_username      = "pgadmin"
+    secret_name         = "postgres-password"
+    kv_key              = "kv1"
+    sku_name            = "B_Standard_B1ms"
+    storage_mb          = 32768
   }
 }
 
