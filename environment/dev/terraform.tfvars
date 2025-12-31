@@ -3,6 +3,10 @@ rg = {
     name     = "dev-rg"
     location = "East US"
   }
+rg2 = {
+    name     = "test-rg"
+    location = "East US"
+  }
 }
 
 vnet = {
