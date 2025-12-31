@@ -14,11 +14,11 @@ module "rg" {
 ############################
 # Virtual Network
 ############################
-# module "vnet" {
-#   depends_on = [module.rg]
-#   source     = "../../module/virtual_network"
-#   vnet       = var.vnet
-# }
+module "vnet" {
+  depends_on = [module.rg]
+  source     = "../../module/virtual_network"
+  vnet       = var.vnet
+}
 
 # ############################
 # # Subnet
