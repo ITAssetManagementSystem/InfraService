@@ -23,11 +23,11 @@ module "vnet" {
 # ############################
 # # Subnet
 # ############################
-# module "subnet" {
-#   depends_on = [module.vnet]
-#   source     = "../../module/subnet"
-#   subnet     = var.subnet
-# }
+module "subnet" {
+  depends_on = [module.vnet]
+  source     = "../../module/subnet"
+  subnet     = var.subnet
+}
 
 # ############################
 # # Azure Container Registry
