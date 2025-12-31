@@ -1,0 +1,12 @@
+name: Terraform CD Apply
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    apply:
+        uses: ITAssetManagementSystem/CommonWorkflows/.github/workflows/terraform-apply.yml@main
+        with:
+            tf_dir: environment/dev
+        secrets: inherit

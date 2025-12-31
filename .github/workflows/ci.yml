@@ -1,13 +1,12 @@
-name: Terraform Plan
+name: Terraform CI Plan
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches: [main]
 
 jobs:
-  call-composite:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Call composite action
-        uses: ITAssetManagementSystem/CommonWorkflows/.github/actions/terraform-plan@main
-        with:
-          message: "Hello from composite action caller Nilay!"
+  plan:
+    uses: ITAssetManagementSystem/CommonWorkflows/.github/workflows/terraform-plan.yml@main
+    with:
+      tf_dir: environment/dev
+    secrets: inherit
