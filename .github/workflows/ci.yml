@@ -1,19 +1,17 @@
-
-name: InfraService CI - Terraform Plan
+name: Terraform CI Plan
 
 on:
   pull_request:
-    paths:
-      - "InfraService/**"
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
-  terraform_plan:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Terraform Plan
-        uses: ITAssetManagementSystem/CommonWorkflows/.github/actions/terraform-plan@main
-        with:
-          working_directory: InfraService
-          environment: dev
-     
+  plan:
+    uses: ITAssetManagementSystem/CommonWorkflows/.github/workflows/terraform-plan.yml@main
+    with:
+      tf_dir: environment/dev
+    secrets: inherit

@@ -1,20 +1,17 @@
-name: InfraService CD - Terraform Apply
+name: Terraform CD Apply
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "InfraService/**"
+    # push:
+    #     branches: [main]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    id-token: write
 
 jobs:
-  terraform_apply:
-    runs-on: ubuntu-latest
-    environment: dev   # 👈 GitHub environment approval laga sakti ho
-
-    steps:
-      - name: Terraform Apply
-        uses: ITAssetManagementSystem/CommonWorkflows/.github/actions/terraform-plan@main
+    apply:
+        uses: ITAssetManagementSystem/CommonWorkflows/.github/workflows/terraform-apply.yml@main
         with:
-          working_directory: InfraService
-          environment: dev
+            tf_dir: environment/dev
+        secrets: inherit

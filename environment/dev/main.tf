@@ -20,9 +20,9 @@ module "vnet" {
   vnet       = var.vnet
 }
 
-############################
-# Subnet
-############################
+# ############################
+# # Subnet
+# ############################
 module "subnet" {
   depends_on = [module.vnet]
   source     = "../../module/subnet"
