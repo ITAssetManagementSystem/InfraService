@@ -52,7 +52,7 @@ aks = {
 
 kv = {
   kv1 = {
-    name                = "dev-kv301225"
+    name                = "dev-kv30122560"
     location            = "East US"
     resource_group_name = "dev-rg"
   }
